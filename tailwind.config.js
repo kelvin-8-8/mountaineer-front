@@ -7,8 +7,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
     flowbite.content(),
   ],
+  darkMode: "selector",
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        '500px': '500px'
+      }
+    },
   },
   plugins: [
     flowbite.plugin(),

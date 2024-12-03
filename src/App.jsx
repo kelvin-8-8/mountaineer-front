@@ -4,17 +4,42 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { Button, Navbar } from "flowbite-react";
-import { Top } from "./components/Top";
-import { Pics } from "./components/Pics";
+import Top from "./components/Top";
+import Pics from "./components/Pics";
+import Home from "./pages/Home";
+import About from "./pages/About"
+import PageTesting from "./pages/PageTesting"
 
 function App() {
 
   return (
-    <>
+      <Router >
       <Top/>
-      <img src="/Mountain.jpg" alt="image loss" />
-    </>
+
+      <div>
+        <Routes>
+          <Route
+            path="/"
+            element={ <Home/>}
+          />
+
+          <Route
+            path="/about"
+            element={ <About/>}
+          />
+
+          <Route 
+            path="/"/>
+
+
+
+        </Routes>
+      </div>
+
+      
+
+    </Router>
+
   )
 }
 
