@@ -4,8 +4,9 @@ import Pics from '../components/Pics';
 export default function Home() {
   return (
     <div>
-        <Pics/>
-
+        
+          <Pics />
+          
         <div className='flex flex-col justify-center items-center bg-red-200 h-96'>
 
           <h1 className='block text-2xl m-6 mb-12'>關於我們</h1>
