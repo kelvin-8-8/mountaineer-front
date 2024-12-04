@@ -12,7 +12,10 @@ export default {
     extend: {
       height: {
         '500px': '500px'
-      }
+      },
+      fontFamily: {
+        tradewinds: ['Trade Winds', 'sans-serif'],
+      },
     },
   },
   plugins: [
