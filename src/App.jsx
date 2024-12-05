@@ -6,10 +6,11 @@ import {
 } from "react-router-dom";
 import Top from "./components/Top";
 import Footer from "./components/Footer";
-import Pics from "./components/Pics";
+import PageTesting from "./pages/PageTesting";
 import Home from "./pages/Home";
 import About from "./pages/About"
 import Login from "./pages/Login"
+import ComponentTesting from "./components/ComponentTesting";
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
 
   return (
       <Router >
-      <Top/>
+      <ComponentTesting/>
 
       <main>
         <Routes>

@@ -1,11 +1,8 @@
-const flowbite = require("flowbite-react/tailwind");
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    flowbite.content(),
+    "./src/**/*.{js,ts,jsx,tsx}"
   ],
   darkMode: "selector",
   theme: {
@@ -19,7 +16,11 @@ export default {
     },
   },
   plugins: [
-    flowbite.plugin(),
+    require('daisyui'),
   ],
+  daisyui: {
+    themes: ["light", "dark", "cupcake"],
+  },
+  darkMode: ['selector', '[data-theme="dark"]']
 }
 

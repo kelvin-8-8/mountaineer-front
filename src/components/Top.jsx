@@ -107,6 +107,7 @@ export default function Top( { isLoggedIn } ) {
             <Link to="/login" className={`${isOpen ? "hidden" : ""} ml-2`}>
               <UserButton />
             </Link>
+
             <li className={`${isOpen ? "hidden" : ""} ml-2`}>
               <SwitchButton />
             </li>

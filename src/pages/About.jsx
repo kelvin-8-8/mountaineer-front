@@ -1,5 +1,5 @@
 import React from 'react';
-import Pics from '../components/Pics';
+import Pics from '../components/Carousel';
 
 export default function About() {
   return (
