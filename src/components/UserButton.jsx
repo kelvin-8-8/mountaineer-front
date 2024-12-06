@@ -2,10 +2,8 @@ import React, { useState } from "react";
 
 export default function UserButton() {
   return (
-    <label className="swap swap-rotate hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-      {/* this hidden checkbox controls the state */}
-      <input type="checkbox" />
-
+    <label className="btn btn-ghost btn-circle">
+      
       {/* sun icon */}
       <svg
         className="w-6 h-6 "

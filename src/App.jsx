@@ -18,7 +18,7 @@ function App() {
 
   return (
       <Router >
-      <ComponentTesting/>
+      <Top/>
 
       <main>
         <Routes>

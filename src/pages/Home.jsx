@@ -4,7 +4,7 @@ import Carousel from '../components/Carousel';
 export default function Home() {
   return (
     <div>
-          <Carousel />
+        <Carousel />
           
         <div className='flex flex-col justify-center items-center bg-base-100 h-96'>
 
@@ -12,6 +12,7 @@ export default function Home() {
           <p className='block m-6'>簡述</p>
           
         </div>
+        
         <div className='flex flex-row justify-around items-center bg-base-100 h-96'>
 
           <h1 className='text-2xl'>借裝備PIC</h1>
