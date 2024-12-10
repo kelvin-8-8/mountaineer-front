@@ -39,11 +39,11 @@ export default function Top( { isLoggedIn } ) {
             >
               {/* HOME */}
               <li>
-                <a>Home</a>
+                <Link to="/">Home</Link>
               </li>
               {/* ABOUT */}
               <li>
-                <a>About</a>
+                <Link to="/about">About</Link>
               </li>
               {/* Features */}
               <li>
@@ -60,7 +60,7 @@ export default function Top( { isLoggedIn } ) {
             </ul>
           </div>
           {/* 標題 */}
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-4xl font-tradewinds">Mountaineer</a>
         </div>
 
         {/* 中間 */}
@@ -68,11 +68,11 @@ export default function Top( { isLoggedIn } ) {
           <ul className="menu menu-horizontal px-1">
             {/* HOME */}
             <li>
-              <a>Home</a>
+              <Link to="/">Home</Link>
             </li>
             {/* ABOUT */}
             <li>
-              <a>About</a>
+              <Link to="/about">About</Link>
             </li>
             {/* Features */}
             <li>
