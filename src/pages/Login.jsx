@@ -51,8 +51,8 @@ export default function Login() {
 								/>
 							</label>
 						</div>
-						<div className="form-control mt-6">
-							<button className="btn btn-primary">Login</button>
+						<div className="form-control mt-10">
+							<button className="btn btn-outline btn-primary">Login</button>
 						</div>
 					</form>
 					<div className="divider">OR</div>
