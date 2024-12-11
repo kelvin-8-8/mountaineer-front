@@ -1,6 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 
 export default function Login() {
+
+	const [username, setUsername] = useState("");
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log(username);
+		// TODO 呼叫 API 進行登入
+	}
+
+
 	return (
 		<div className="bg-base-100 flex items-center justify-center min-h-screen">
 			<div className="card w-96 bg-base-100 shadow-xl">
@@ -8,7 +18,7 @@ export default function Login() {
 					<h2 className="card-title text-2xl font-bold mb-6">Login</h2>
 
 					{/* 輸入表單 */}
-					<form>
+					<form onSubmit={handleSubmit}>
 						{/* 使用者 */}
 						<div className="form-control">
 							<label className="label">
@@ -52,7 +62,7 @@ export default function Login() {
 							</label>
 						</div>
 						<div className="form-control mt-10">
-							<button className="btn btn-outline btn-primary">Login</button>
+							<button type="submit" className="btn btn-outline btn-primary">Login</button>
 						</div>
 					</form>
 					<div className="divider">OR</div>

@@ -18,7 +18,7 @@ export default function Carousel() {
   ]
 
   return (
-    <div className="flex flex-row justify-center items-center w-full z-10">
+    <div className="flex flex-row justify-center items-center w-full p-4 md:pt-6 xl:pt-12 z-10">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={30}
@@ -27,10 +27,10 @@ export default function Carousel() {
         pagination={{ clickable: true }}
         loop={true}
         autoplay={{
-          delay: 3000, // 3 seconds between slides
+          delay: 7000, // 7 seconds between slides
           disableOnInteraction: false, // Keep autoplay running after user interactions
         }}
-        className="rounded-lg shadow-lg max-w-screen-3xl h-96 md:h-500px"
+        className="rounded-lg shadow-lg max-w-screen-xl h-96 md:h-500px"
       >
         {/* array.map(function(currentValue, index, arr), thisValue) */}
         {images.map((image, index) => (

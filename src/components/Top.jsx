@@ -60,7 +60,7 @@ export default function Top( { isLoggedIn } ) {
             </ul>
           </div>
           {/* 標題 */}
-          <a className="btn btn-ghost text-4xl font-tradewinds">Mountaineer</a>
+          <a className="text-4xl font-tradewinds">Mountaineer</a>
         </div>
 
         {/* 中間 */}
@@ -80,10 +80,10 @@ export default function Top( { isLoggedIn } ) {
                 <summary>Features</summary>
                 <ul className="relative top-6 w-32">
                   <li>
-                    <a>借裝備</a>
+                    <Link to="/equipment">借裝備</Link>
                   </li>
                   <li>
-                    <a>隊伍資訊</a>
+                    <Link to="/itinerary">隊伍資訊</Link>
                   </li>
                 </ul>
               </details>

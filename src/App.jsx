@@ -10,6 +10,8 @@ import PageTesting from "./pages/PageTesting";
 import Home from "./pages/Home";
 import About from "./pages/About"
 import Login from "./pages/Login"
+import Equipment from "./pages/Equipment";
+import Itinerary from "./pages/Itinerary";
 import ComponentTesting from "./components/ComponentTesting";
 
 function App() {
@@ -24,7 +26,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={ <Home/>}
+            element={ <Home isLoggedIn={isLoggedIn} />}
           />
 
           <Route
@@ -33,7 +35,14 @@ function App() {
           />
 
           <Route 
-            path="/feature"/>
+            path="/equipment"
+            element={<Equipment/>}
+          />
+
+          <Route 
+            path="/itinerary"
+            element={<Itinerary/>}
+          />
 
           <Route 
             path="/login"

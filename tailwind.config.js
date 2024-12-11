@@ -8,8 +8,19 @@ export default {
   theme: {
     extend: {
       height: {
-        '500px': '500px'
+        '500px': '500px',
+        '600px': '600px',
+        '700px': '700px',
+        '800px': '800px',
       },
+
+      width: {
+        '500px': '500px',
+        '600px': '600px',
+        '700px': '700px',
+        '800px': '800px',
+      },
+
       fontFamily: {
         tradewinds: ['Trade Winds', 'sans-serif'],
       },
