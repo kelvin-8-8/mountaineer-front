@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SwitchButton from "../components/SwitchButton";
 import UserButton from "../components/UserButton";
 
-export default function Top( { isLoggedIn } ) {
+export default function Top({ isLoggedIn }) {
+    
+    window.addEventListener('click', function(e) {
+      document.querySelectorAll('.dropdownDetails').forEach(function(dropdownDetails) {
+        if (!dropdownDetails.contains(e.target)) {
+          // Click was outside the dropdown, close it
+          dropdownDetails.open = false;
+        }
+      });
+    });
   
-
-  return (
+    return (
     <div className="flex flex-col justify-center items-center bg-base-200">
       <div className="navbar bg-base-200 max-w-screen-xl z-50 relative">
         {/* 左側 */}
@@ -76,16 +84,16 @@ export default function Top( { isLoggedIn } ) {
             </li>
             {/* Features */}
             <li>
-              <details>
-                <summary>Features</summary>
-                <ul className="relative top-6 w-32">
-                  <li>
-                    <Link to="/equipment">借裝備</Link>
-                  </li>
-                  <li>
-                    <Link to="/itinerary">隊伍資訊</Link>
-                  </li>
-                </ul>
+              <details className="dropdownDetails">
+                  <summary>Features</summary>
+                  <ul className="relative top-6 w-32">
+                    <li>
+                      <Link to="/equipment">借裝備</Link>
+                    </li>
+                    <li>
+                      <Link to="/itinerary">隊伍資訊</Link>
+                    </li>
+                  </ul>
               </details>
             </li>
           </ul>

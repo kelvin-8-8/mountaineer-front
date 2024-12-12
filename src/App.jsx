@@ -4,15 +4,20 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+
+// Components 
 import Top from "./components/Top";
 import Footer from "./components/Footer";
+import ComponentTesting from "./components/ComponentTesting";
+
+// Pages
 import PageTesting from "./pages/PageTesting";
 import Home from "./pages/Home";
 import About from "./pages/About"
 import Login from "./pages/Login"
 import Equipment from "./pages/Equipment";
 import Itinerary from "./pages/Itinerary";
-import ComponentTesting from "./components/ComponentTesting";
+
 
 function App() {
 
