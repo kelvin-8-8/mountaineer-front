@@ -43,6 +43,8 @@ export default function Login() {
 									type="text"
 									className="grow"
 									placeholder="Username"
+									value={username}
+									onChange={(e) => setUsername(e.target.value)}
 								/>
 							</label>
 						</div>
@@ -69,6 +71,8 @@ export default function Login() {
 									type="password"
 									className="grow"
 									placeholder="Enter password"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
 								/>
 							</label>
 						</div>

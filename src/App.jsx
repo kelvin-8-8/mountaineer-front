@@ -25,11 +25,13 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-      <Router >
+      <Router future={{
+        v7_startTransition: true,  // 啟用 startTransition
+        v7_relativeSplatPath: true // 啟用相對 Splat 路徑解析
+      }}>
       <Top />
 
-      <main>
-        <Routes>
+      <Routes>
           <Route
             path="/"
             element={ <Home/>}
@@ -61,11 +63,9 @@ function App() {
           />
 
         </Routes>
-      </main>
-
-      <ComponentTesting />
-
       
+
+      <Footer />
 
     </Router>
 
@@ -73,3 +73,11 @@ function App() {
 }
 
 export default App;
+
+
+//<Routes>
+//        {/* <Route path="/admin/*" element={<AdminRouter />}></Route> */}
+//       <Route path="/boss/*" element={<BossRouter userData={userData} />}></Route>
+//        <Route path="/member/*" element={<MemberRouter userData={userData} />}></Route>
+//        <Route path="/*" element={<VisitorRouter userData={ userData} />}></Route>
+//</Routes>
