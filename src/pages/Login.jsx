@@ -1,13 +1,24 @@
 import React, {useState} from "react";
+import {login} from "../services/authService";
 
 export default function Login() {
 
 	const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(username);
-		// TODO 呼叫 API 進行登入
+		try {
+			const result = await login(username, password);
+            console.log("Login successful:", result);
+			alert("登入成功");
+			//TODO 重導到後台頁面
+		}
+		catch (error) {
+			console.log(error);
+			alert("登入失敗");
+		}
+		
 	}
 
 
@@ -29,7 +40,7 @@ export default function Login() {
 									<path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z"/><circle cx="12" cy="6" r="6"/>
 								</svg>
 								<input
-									type="email"
+									type="text"
 									className="grow"
 									placeholder="Username"
 								/>

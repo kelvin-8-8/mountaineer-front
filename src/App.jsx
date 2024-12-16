@@ -17,6 +17,7 @@ import About from "./pages/About"
 import Login from "./pages/Login"
 import Equipment from "./pages/Equipment";
 import Itinerary from "./pages/Itinerary";
+import SignUp from "./pages/SignUp";
 
 
 function App() {
@@ -25,13 +26,13 @@ function App() {
 
   return (
       <Router >
-      <Top/>
+      <Top />
 
       <main>
         <Routes>
           <Route
             path="/"
-            element={ <Home isLoggedIn={isLoggedIn} />}
+            element={ <Home/>}
           />
 
           <Route
@@ -54,7 +55,10 @@ function App() {
             element={<Login/>}
           />
 
-
+          <Route 
+            path="/signup" 
+            element={<SignUp/>}
+          />
 
         </Routes>
       </main>
