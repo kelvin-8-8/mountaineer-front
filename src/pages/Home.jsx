@@ -7,25 +7,16 @@ export default function Home( isLoggedIn) {
   
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <Carousel />
 
-      <div className="flex flex-col justify-center items-center bg-base-100 h-96">
-        <h1 className="block text-2xl m-6 mb-12">關於我們</h1>
-        <p className="block m-6">簡述</p>
-      </div>
-
       <div
-        className="hero h-96 md:h-800px"
-        style={{
-          backgroundImage:
-            `url(${GearImage})`,
-        }}
+        className="hero max-w-screen-xl h-80"
       >
-        <div className="hero-overlay bg-opacity-60"></div>
-        <div className="hero-content text-neutral-content text-center">
+        <div className="hero-overlay bg-opacity-0"></div>
+        <div className="hero-content text-center">
           <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Hello there</h1>
+            <h1 className="mb-5 text-5xl font-bold">Hello there !</h1>
             <p className="mb-5">
               Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
@@ -35,10 +26,19 @@ export default function Home( isLoggedIn) {
           </div>
         </div>
       </div>
+      
 
       </div>
   );
 }
+
+
+{/* <div className="flex flex-col justify-center items-center bg-base-100 h-96">
+        <h1 className="block text-2xl m-6 mb-12">關於我們</h1>
+        <p className="block m-6">簡述</p>
+      </div>
+
+       */}
 
 // <div className='hero h-full basis-1/2' style={{backgroundImage: `url(${GearImage})`}}>
 //             <div className='hero-overlay hover:bg-opacity-80 hover:cursor-pointer'></div>
