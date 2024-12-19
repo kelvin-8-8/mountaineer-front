@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SwitchButton from "../components/SwitchButton";
 import UserButton from "../components/UserButton";
 
-export default function Top({ isLoggedIn }) {
+export default function Top({ isLoggedIn, role }) {
     
     window.addEventListener('click', function(e) {
       document.querySelectorAll('.dropdownDetails').forEach(function(dropdownDetails) {

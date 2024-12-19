@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import {login} from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
 
 	const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -13,6 +15,7 @@ export default function Login() {
             console.log("Login successful:", result);
 			alert("登入成功");
 			//TODO 重導到後台頁面
+			navigate("/profile");
 		}
 		catch (error) {
 			console.log(error);

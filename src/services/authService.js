@@ -1,10 +1,15 @@
 // services/authService.js
 import {API_BASE_URL, api} from "../config/api";
 
+
+/**
+ * 
+ * @returns {Promise<Object>} 包含登入狀態的 API 回應
+ */
 // 確認是否登入
 export const isLogin = async () => {
   try {
-    const response = await api.get('/auth/check');
+    const response = await api.get('/auth/checkLogin');
     return response.data;
   } catch (error) {
     throw error;
@@ -13,7 +18,7 @@ export const isLogin = async () => {
 
 export const checkRole = async () => {
   try {
-    const response = await api.get('/auth/role');
+    const response = await api.get('/auth/checkRole');
     return response.data;
   } catch (error) {
     throw error;
