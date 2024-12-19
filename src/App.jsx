@@ -18,20 +18,26 @@ import Login from "./pages/Login"
 import Equipment from "./pages/Equipment";
 import Itinerary from "./pages/Itinerary";
 import SignUp from "./pages/SignUp";
+import Loading from "./pages/Loading";
+import { isLogin } from "./services/authService";
 
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
 
   return (
       <Router future={{
         v7_startTransition: true,  // 啟用 startTransition
         v7_relativeSplatPath: true // 啟用相對 Splat 路徑解析
       }}>
+
+      
       <Top />
 
       <Routes>
+
+          {/* 公開頁面 */}
           <Route
             path="/"
             element={ <Home/>}
@@ -60,6 +66,30 @@ function App() {
           <Route 
             path="/signup" 
             element={<SignUp/>}
+          />
+
+          <Route 
+            path="/loading" 
+            element={<Loading />} 
+          />
+          {/* 公開頁面 */}
+
+          {/* 一般使用者 */}
+          <Route 
+            path="/setting"
+            element={<Setting/>}
+          />
+
+          {/* 幹部 */}
+          <Route 
+            path="/create"
+            element={<Setting/>}
+          />
+
+          {/* 管理者 */}
+          <Route 
+            path="/admin"
+            element={<Setting/>}
           />
 
         </Routes>

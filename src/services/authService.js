@@ -1,6 +1,25 @@
 // services/authService.js
 import {API_BASE_URL, api} from "../config/api";
 
+// 確認是否登入
+export const isLogin = async () => {
+  try {
+    const response = await api.get('/auth/check');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const checkRole = async () => {
+  try {
+    const response = await api.get('/auth/role');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // 登入
 export const login = async (username, password) => {
     // 以後端 return ResponseEntity.status(403).body(ApiResponse.error(403, "登入失敗")); 為例
