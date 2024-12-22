@@ -1,5 +1,5 @@
 // services/authService.js
-import {API_BASE_URL, api} from "../config/api";
+import { API_BASE_URL, api } from "../config/api";
 
 
 /**
@@ -27,46 +27,43 @@ export const checkRole = async () => {
 
 // 登入
 export const login = async (username, password) => {
-    // 以後端 return ResponseEntity.status(403).body(ApiResponse.error(403, "登入失敗")); 為例
-    // error.response.status = 403
-    // error.response.data = { status: 403, message: "登入失敗", data: null}
-    try {
-        const response = await api.post(`/auth/login`, 
-            { username, password } );
-        return response.data;
+  // 以後端 return ResponseEntity.status(403).body(ApiResponse.error(403, "登入失敗")); 為例
+  // error.response.status = 403
+  // error.response.data = { status: 403, message: "登入失敗", data: null}
+  try {
+    const response = await api.post(`/auth/login`,
+      { username, password });
+    return response.data;
+  }
+  catch (error) {
+    if (error.response) {
+      throw error.response.data;
     }
-    catch (error) {
-        if (error.response) {
-            throw error.response.data;
-        }
-        console.log(error);
-        throw(error);
-    }
+    console.log(error);
+    throw (error);
+  }
 }
 
 // 登出
 export const logout = async () => {
-    try {
-        const response = await api.get('/auth/logout');
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+  try {
+    const response = await api.get('/auth/logout');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }
 
 // 註冊
-export const register = async (username, password, email) => {
-    try {
-      const response = await axiosInstance.post('/register', {
-        username,
-        password,
-        email
-      });
-      return response.data;
-    } catch (error) {
-      if (error.response) {
-        throw error.response.data;
-      }
-      throw error;
+export const register = async (username, trueName, email, password) => {
+  try {
+    const response = await api.post(`/auth/register`, 
+      { username, trueName, email, password });
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      throw error.response.data;
     }
-  };
+    throw error;
+  }
+};

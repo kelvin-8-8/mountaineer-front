@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {login} from "../services/authService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
 
@@ -86,9 +86,9 @@ export default function Login() {
 					<div className="divider">OR</div>
 					<div className="text-center">
 						<p>Don't have an account?</p>
-						<a href="#" className="link link-primary">
+						<Link to="/signup" className="link link-primary">
 							Sign up now
-						</a>
+						</Link>
 					</div>
 				</div>
 			</div>

@@ -2,8 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import SwitchButton from "../components/SwitchButton";
 import UserButton from "../components/UserButton";
+import LogoutButton from "../components/LogoutButton";
+import { logout } from "../services/authService";
 
-export default function Top({ isLoggedIn, role }) {
+export default function Top({ isLoggedIn, role, updateAuthState }) {
+
+  const ROLE_HIERARCHY = {
+    "ROLE_GUEST": 1,
+    "ROLE_MEMBER": 2,
+    "ROLE_ADMIN": 3
+  }
     
     window.addEventListener('click', function(e) {
       document.querySelectorAll('.dropdownDetails').forEach(function(dropdownDetails) {
@@ -13,7 +21,8 @@ export default function Top({ isLoggedIn, role }) {
         }
       });
     });
-  
+    
+    
     return (
     <div className="flex flex-col justify-center items-center bg-base-200">
       <div className="navbar bg-base-200 max-w-screen-xl z-50 relative">
@@ -68,7 +77,8 @@ export default function Top({ isLoggedIn, role }) {
             </ul>
           </div>
           {/* 標題 */}
-          <a className="text-4xl font-tradewinds">Mountaineer</a>
+          {}
+          <Link to="/" className="text-4xl font-tradewinds pl-4">Mountaineer</Link>
         </div>
 
         {/* 中間 */}
@@ -84,7 +94,7 @@ export default function Top({ isLoggedIn, role }) {
             </li>
             {/* Features */}
             <li>
-              <details className="dropdownDetails">
+              <details className="dropdownDetails ">
                   <summary>Features</summary>
                   <ul className="relative top-6 w-32">
                     <li>
@@ -96,17 +106,57 @@ export default function Top({ isLoggedIn, role }) {
                   </ul>
               </details>
             </li>
+            {/* Create */}
+            {
+              isLoggedIn && ROLE_HIERARCHY[role] >= ROLE_HIERARCHY["ROLE_MEMBER"] ? 
+              <li className="text-success">
+                <details className="dropdownDetails ">
+                  <summary>Create</summary>
+                  <ul className="relative top-6 w-32">
+                    <li>
+                      <Link to="/create/equipment">新增裝備</Link>
+                    </li>
+                    <li>
+                      <Link to="/create/itinerary">新增隊伍</Link>
+                    </li>
+                  </ul>
+                </details>
+              </li> :
+              <></>
+            }
+            {/* Admin */}
+            {
+              isLoggedIn && ROLE_HIERARCHY[role] >= ROLE_HIERARCHY["ROLE_ADMIN"] ? 
+              <li className="text-success">
+                <Link to="/admin">Admin</Link>
+              </li> :
+              <></>
+            }
           </ul>
         </div>
         {/* 右邊 */}
         <div className="navbar-end">
           <ul className="flex flex-row">
-            <li>
-              <Link to="/login">
-                <UserButton />
-              </Link>
-            </li>
-
+            {
+              isLoggedIn ? 
+              <>
+                <li>
+                  <Link to="/profile">
+                    <UserButton />
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/">
+                    <LogoutButton isLoggedIn={isLoggedIn} updateAuthState={updateAuthState}/>
+                  </Link>
+                </li> 
+              </> :
+              <li>
+                <Link to="/login">
+                  <UserButton />
+                </Link>
+              </li>
+            }
             <li>
               <SwitchButton />
             </li>

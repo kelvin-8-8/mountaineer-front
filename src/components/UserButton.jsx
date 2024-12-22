@@ -4,7 +4,7 @@ export default function UserButton() {
   return (
     <label className="btn btn-ghost btn-circle">
       
-      {/* sun icon */}
+      {/* profile icon */}
       <svg
         className="w-6 h-6 "
         aria-hidden="true"

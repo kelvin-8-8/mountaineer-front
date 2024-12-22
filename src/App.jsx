@@ -12,6 +12,7 @@ import ComponentTesting from "./components/ComponentTesting";
 import ProtectedRoute from "./route/ProtectedRoute";
 
 // Pages
+import Layout from "./pages/Layout";
 import PageTesting from "./pages/PageTesting";
 import Home from "./pages/Home";
 import About from "./pages/About"
@@ -20,8 +21,13 @@ import Equipment from "./pages/Equipment";
 import Itinerary from "./pages/Itinerary";
 import SignUp from "./pages/SignUp";
 import Loading from "./pages/Loading";
+import Unauthorized from "./pages/Unauthorized";
 import Profile from "./pages/Profile";  
-import Layout from "./pages/Layout";
+import Create from "./pages/Create";
+import CreateEquipment from "./pages/CreateEquipment";
+import CreateItinerary from "./pages/CreateItinerary";
+import AdminPage from "./pages/AdminPage";
+
 
 // Services
 import { isLogin } from "./services/authService";
@@ -29,13 +35,15 @@ import { isLogin } from "./services/authService";
 
 
 function App() {
-  
-  isLogin().then(result => {
-    console.log("isLoggedIn:", result);
-  }).catch(error => {
-    console.error("發生錯誤:", error);
+
+  const [authState, setAuthState] = useState({
+    isLoggedIn: null,
+    role: null
   });
-  
+
+  const updateAuthState = (newState) => {
+    setAuthState(newState);
+  };
 
   return (
     <Router future={{
@@ -45,44 +53,72 @@ function App() {
 
       <Routes>
         {/* 包含 Navbar 和 Footer 的全局佈局 */}
-        <Route path="/" element={<Layout isLoggedIn={isLoggedIn}/>}>
+        <Route 
+          path="/" 
+          element=
+            {<Layout 
+              isLoggedIn={authState.isLoggedIn} 
+              role={authState.role}
+              updateAuthState={updateAuthState}/>}>
 
           {/* 公開路由 */}
+          
           <Route index                element={<Home />} />
+          <Route path="about"         element={<About />} />
+          <Route path="signup"        element={<SignUp />}/>
           <Route path="login"         element={<Login />} />
+          <Route path="equipment"     element={<Equipment />} />
+          <Route path="itinerary"     element={<Itinerary />} />
           <Route path="loading"       element={<Loading />} />
-          <Route path="equipment"     element={<Equipment/>} />
-          <Route path="itinerary"     element={<Itinerary/>} />
+          <Route path="unauthorized"  element={<Unauthorized />}/>
+          <Route path="test"          element={<PageTesting />} />
+
 
           {/* 受保護路由 - 需要登入 */}
           <Route
             path="profile"
             element={
-              <ProtectedRoute requireRole="user">
+              <ProtectedRoute requireRole="ROLE_MEMBER">
                 <Profile />
               </ProtectedRoute>
             }
           />
 
           {/* 受保護路由 - 需要 member 或更高 */}
-          {/* <Route
-            path="create"
+          <Route
+            path="create/*"
             element={
-              <ProtectedRoute requireRole="member">
+              <ProtectedRoute requireRole="ROLE_MEMBER">
                 <Create />
               </ProtectedRoute>
             }
-          /> */}
+          />
+          <Route
+            path="create/equipment"
+            element={
+              <ProtectedRoute requireRole="ROLE_MEMBER">
+                <CreateEquipment/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="create/itinerary"
+            element={
+              <ProtectedRoute requireRole="ROLE_MEMBER">
+                <CreateItinerary/>
+              </ProtectedRoute>
+            }
+          />
 
           {/* 受保護路由 - 需要 admin */}
-          {/* <Route
+          <Route
             path="admin"
             element={
-              <ProtectedRoute requireRole="admin">
+              <ProtectedRoute requireRole="ROLE_ADMIN">
                 <AdminPage />
               </ProtectedRoute>
             }
-          /> */}
+          />
         </Route>
       </Routes>
       

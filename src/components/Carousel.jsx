@@ -12,9 +12,9 @@ export default function Carousel() {
 
   const images = [
     "/Mountain.jpg",
-    "https://via.placeholder.com/1080x800?text=Slide+2",
-    "https://via.placeholder.com/800x400?text=Slide+3",
-    "https://via.placeholder.com/800x400?text=Slide+4",
+    "https://picsum.photos/1080/800",
+    "https://picsum.photos/800/400",
+    "https://picsum.photos/id/28/800/400",
   ]
 
   return (
