@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from "react-router-dom";
 
 export default function Create() {
 
@@ -8,8 +9,8 @@ export default function Create() {
         <div className='flex flex-col items-center justify-center'>
             <div className='justify-center items-center content-center max-w-screen-xl'>
                 <div className="card p-4 bg-base-100 rounded-md flex flex-wrap flex-row justify-center gap-6">
-                    <input type="button" value="Equipment" className="btn btn-xs md:btn-md" />
-                    <input type="button" value="Itinerary" className="btn btn-xs md:btn-md" />
+                        <input type="button" value="Equipment" className="btn btn-xs md:btn-md" />
+                        <input type="button" value="Itinerary" className="btn btn-xs md:btn-md" />
                 </div>
 
                 <div className="divider"></div>

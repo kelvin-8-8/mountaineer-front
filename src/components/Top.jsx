@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 import SwitchButton from "../components/SwitchButton";
 import UserButton from "../components/UserButton";
 import LogoutButton from "../components/LogoutButton";
-import { logout } from "../services/authService";
+import CartButton from "../components/CartButton";
 
 export default function Top({ isLoggedIn, role, updateAuthState }) {
+
+  const [cart, setCart] = useState([]);
+  const addToCart = (item) => {
+    setCart((prev) => [...prev, item]);
+  };
 
   const ROLE_HIERARCHY = {
     "ROLE_GUEST": 1,
@@ -25,7 +30,7 @@ export default function Top({ isLoggedIn, role, updateAuthState }) {
     
     return (
     <div className="flex flex-col justify-center items-center bg-base-200">
-      <div className="navbar bg-base-200 max-w-screen-xl z-50 relative">
+      <div className="navbar bg-base-200 max-w-screen-xl z-30 relative">
         {/* 左側 */}
         <div className="navbar-start">
           {/* 手機板 下拉式 */}
@@ -111,13 +116,31 @@ export default function Top({ isLoggedIn, role, updateAuthState }) {
               isLoggedIn && ROLE_HIERARCHY[role] >= ROLE_HIERARCHY["ROLE_MEMBER"] ? 
               <li className="text-success">
                 <details className="dropdownDetails ">
-                  <summary>Create</summary>
+                  <summary className="underline">Create</summary>
                   <ul className="relative top-6 w-32">
                     <li>
                       <Link to="/create/equipment">新增裝備</Link>
                     </li>
                     <li>
                       <Link to="/create/itinerary">新增隊伍</Link>
+                    </li>
+                  </ul>
+                </details>
+              </li> :
+              <></>
+            }
+            {/* Manage */}
+            {
+              isLoggedIn && ROLE_HIERARCHY[role] >= ROLE_HIERARCHY["ROLE_MEMBER"] ? 
+              <li className="text-success">
+                <details className="dropdownDetails ">
+                  <summary className="underline">Manage</summary>
+                  <ul className="relative top-6 w-32">
+                    <li>
+                      <Link to="/manage/equipment">裝備訂單</Link>
+                    </li>
+                    <li>
+                      <Link to="/manage/itinerary">你的隊伍</Link>
                     </li>
                   </ul>
                 </details>
@@ -134,6 +157,7 @@ export default function Top({ isLoggedIn, role, updateAuthState }) {
             }
           </ul>
         </div>
+
         {/* 右邊 */}
         <div className="navbar-end">
           <ul className="flex flex-row">
@@ -146,16 +170,24 @@ export default function Top({ isLoggedIn, role, updateAuthState }) {
                   </Link>
                 </li>
                 <li>
+                  <CartButton />
+                </li>
+                <li>
                   <Link to="/">
                     <LogoutButton isLoggedIn={isLoggedIn} updateAuthState={updateAuthState}/>
                   </Link>
                 </li> 
               </> :
+              <>
               <li>
                 <Link to="/login">
                   <UserButton />
                 </Link>
               </li>
+              <li>
+                <CartButton cart={cart}/>
+              </li>
+            </>
             }
             <li>
               <SwitchButton />

@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # 設定檔
-*.env
+.env

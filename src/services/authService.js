@@ -10,6 +10,8 @@ import { API_BASE_URL, api } from "../config/api";
 export const isLogin = async () => {
   try {
     const response = await api.get('/auth/checkLogin');
+    console.log("確認登入");
+    
     return response.data;
   } catch (error) {
     throw error;
@@ -19,6 +21,7 @@ export const isLogin = async () => {
 export const checkRole = async () => {
   try {
     const response = await api.get('/auth/checkRole');
+    console.log("確認身份");
     return response.data;
   } catch (error) {
     throw error;

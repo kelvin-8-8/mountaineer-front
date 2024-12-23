@@ -13,6 +13,7 @@ import ProtectedRoute from "./route/ProtectedRoute";
 
 // Pages
 import Layout from "./pages/Layout";
+import PageTest from "./pages/PageTest";
 import PageTesting from "./pages/PageTesting";
 import Home from "./pages/Home";
 import About from "./pages/About"
@@ -71,7 +72,8 @@ function App() {
           <Route path="itinerary"     element={<Itinerary />} />
           <Route path="loading"       element={<Loading />} />
           <Route path="unauthorized"  element={<Unauthorized />}/>
-          <Route path="test"          element={<PageTesting />} />
+          <Route path="test"          element={<PageTest />}/>
+          <Route path="testing"       element={<PageTesting />} />
 
 
           {/* 受保護路由 - 需要登入 */}
@@ -88,17 +90,19 @@ function App() {
           <Route
             path="create/*"
             element={
-              <ProtectedRoute requireRole="ROLE_MEMBER">
-                <Create />
-              </ProtectedRoute>
+              <Create />
+            //   <ProtectedRoute requireRole="ROLE_MEMBER">
+            //     <Create />
+            //   </ProtectedRoute>
             }
           />
           <Route
             path="create/equipment"
             element={
-              <ProtectedRoute requireRole="ROLE_MEMBER">
-                <CreateEquipment/>
-              </ProtectedRoute>
+              <CreateEquipment/>
+              // <ProtectedRoute requireRole="ROLE_MEMBER">
+              //   <CreateEquipment/>
+              // </ProtectedRoute>
             }
           />
           <Route
