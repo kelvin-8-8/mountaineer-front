@@ -1,12 +1,27 @@
-import React, {useState} from "react";
-import {login} from "../services/authService";
+import React, {useState, useEffect} from "react";
+import {login, isLogin, checkRole} from "../services/authService";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Login() {
+export default function Login( {updateAuthState} ) {
 
 	const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 	const navigate = useNavigate();
+
+
+	const fetchstats = async () => {
+		try {
+			const loginResponse = await isLogin();
+			const roleResponse = await checkRole();
+			updateAuthState({
+				isLoggedIn: loginResponse.data,
+				role: roleResponse.data.role
+			});
+		} catch (error) {
+			updateAuthState({ isLoggedIn: null, role: null });
+		}
+	};
+	
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -14,15 +29,20 @@ export default function Login() {
 			const result = await login(username, password);
             console.log("Login successful:", result);
 			alert("登入成功");
+			fetchstats();
 			//TODO 重導到後台頁面
 			navigate("/profile");
-		}
-		catch (error) {
+		} catch (error) {
 			console.log(error);
 			alert("登入失敗");
 		}
 		
 	}
+
+	
+		
+
+		
 
 
 	return (

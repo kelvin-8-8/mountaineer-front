@@ -5,12 +5,8 @@ import UserButton from "../components/UserButton";
 import LogoutButton from "../components/LogoutButton";
 import CartButton from "../components/CartButton";
 
-export default function Top({ isLoggedIn, role, updateAuthState }) {
+export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFromCart}) {
 
-  const [cart, setCart] = useState([]);
-  const addToCart = (item) => {
-    setCart((prev) => [...prev, item]);
-  };
 
   const ROLE_HIERARCHY = {
     "ROLE_GUEST": 1,
@@ -18,17 +14,17 @@ export default function Top({ isLoggedIn, role, updateAuthState }) {
     "ROLE_ADMIN": 3
   }
     
-    window.addEventListener('click', function(e) {
+  window.addEventListener('click', function(e) {
       document.querySelectorAll('.dropdownDetails').forEach(function(dropdownDetails) {
         if (!dropdownDetails.contains(e.target)) {
           // Click was outside the dropdown, close it
           dropdownDetails.open = false;
         }
       });
-    });
+  });
     
     
-    return (
+  return (
     <div className="flex flex-col justify-center items-center bg-base-200">
       <div className="navbar bg-base-200 max-w-screen-xl z-30 relative">
         {/* 左側 */}
@@ -170,11 +166,11 @@ export default function Top({ isLoggedIn, role, updateAuthState }) {
                   </Link>
                 </li>
                 <li>
-                  <CartButton />
+                  <CartButton cart={cart} removeFromCart={removeFromCart}/>
                 </li>
                 <li>
                   <Link to="/">
-                    <LogoutButton isLoggedIn={isLoggedIn} updateAuthState={updateAuthState}/>
+                    <LogoutButton updateAuthState={updateAuthState}/>
                   </Link>
                 </li> 
               </> :
@@ -185,7 +181,7 @@ export default function Top({ isLoggedIn, role, updateAuthState }) {
                 </Link>
               </li>
               <li>
-                <CartButton cart={cart}/>
+                <CartButton cart={cart} removeFromCart={removeFromCart}/>
               </li>
             </>
             }
@@ -197,4 +193,4 @@ export default function Top({ isLoggedIn, role, updateAuthState }) {
       </div>
     </div>
   );
-}
+};

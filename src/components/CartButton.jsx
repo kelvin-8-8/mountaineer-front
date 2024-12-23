@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function CartButton( {cart} ) {
+export default function CartButton({ cart, removeFromCart }) {
     return (
         <div className="drawer drawer-end">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -14,17 +14,19 @@ export default function CartButton( {cart} ) {
             </div>
             <div className="drawer-side z-50">
                 <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
-                <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                <ul className="menu bg-base-200 text-base-content text-xl min-h-full w-80 pl-6 p-4 ">
                     {/* Sidebar content here */}
                     {
-                        cart.map( (item, index) => (
-                            <li key={index}>
-                                {item.title} x {item.quantity}
+                        cart.length > 0 ? (
+                        cart.map((item, index) => (
+                            <li key={index} className='flex flex-row justify-between'>
+                                <span onClick={() => removeFromCart(item.name)}>{item.name}</span>
+                                <span>x {item.quantity}</span>
                             </li>
                         ))
-                    }
-                    <li><a></a></li>
-                    <li><a>Sidebar Item 2</a></li>
+                    ) : (
+                        <li>購物車是空的</li>
+                    )}
                 </ul>
             </div>
         </div>
@@ -49,5 +51,7 @@ export default function CartButton( {cart} ) {
         //         </ul>
         //     </div>
         // </div>
+
+        
     )
 }

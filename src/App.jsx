@@ -23,7 +23,7 @@ import Itinerary from "./pages/Itinerary";
 import SignUp from "./pages/SignUp";
 import Loading from "./pages/Loading";
 import Unauthorized from "./pages/Unauthorized";
-import Profile from "./pages/Profile";  
+import Profile from "./pages/Profile";
 import Create from "./pages/Create";
 import CreateEquipment from "./pages/CreateEquipment";
 import CreateItinerary from "./pages/CreateItinerary";
@@ -37,14 +37,68 @@ import { isLogin } from "./services/authService";
 
 function App() {
 
+
+  // 狀態控制
   const [authState, setAuthState] = useState({
     isLoggedIn: null,
     role: null
   });
-
   const updateAuthState = (newState) => {
-    setAuthState(newState);
+    setAuthState(prev => ({
+      ...prev,
+      ...newState
+    }));
   };
+  useEffect(() => {
+    const fetchstats = async () => {
+      try {
+        const loginResponse = await isLogin();
+        const roleResponse = await checkRole();
+        setAuthState({
+          isLoggedIn: loginResponse.data,
+          role: roleResponse.data.role
+        });
+      } catch (error) {
+        setAuthState({ isLoggedIn: null, role: null });
+      }
+    };
+
+    fetchstats();
+
+  }, [setAuthState]);
+
+  // 購物車
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (item) => {
+    console.log("加到購物車", item);
+    setCart((prev) => {
+      // 在原本的cart中尋找有沒有一樣的name
+      const existingItemIndex = prev.findIndex(cartItem => cartItem.name === item.name);
+
+      if (existingItemIndex !== -1) {
+        // 商品已存在，更新數量
+        const updatedCart = prev.map((cartItem, index) => 
+          index === existingItemIndex
+              ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
+              : cartItem
+        );
+      return updatedCart;
+      }
+      return [...prev, item];
+    })
+      
+  };
+
+  const removeFromCart = (name) => {
+    setCart((prev) => prev.filter(cartItem => cartItem.name !== name));
+  }
+
+  useEffect(() => {
+    console.log("Cart updated:", cart);
+}, [cart]);
+
+
 
   return (
     <Router future={{
@@ -54,25 +108,28 @@ function App() {
 
       <Routes>
         {/* 包含 Navbar 和 Footer 的全局佈局 */}
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element=
-            {<Layout 
-              isLoggedIn={authState.isLoggedIn} 
-              role={authState.role}
-              updateAuthState={updateAuthState}/>}>
+          {<Layout
+            isLoggedIn={authState.isLoggedIn}
+            role={authState.role}
+            updateAuthState={updateAuthState} 
+            cart={cart}
+            addToCart={addToCart} 
+            removeFromCart={removeFromCart} />}>
 
           {/* 公開路由 */}
-          
+
           <Route index                element={<Home />} />
           <Route path="about"         element={<About />} />
-          <Route path="signup"        element={<SignUp />}/>
-          <Route path="login"         element={<Login />} />
-          <Route path="equipment"     element={<Equipment />} />
+          <Route path="signup"        element={<SignUp />} />
+          <Route path="login"         element={<Login updateAuthState={updateAuthState} />} />
+          <Route path="equipment"     element={<Equipment addToCart={addToCart} />} />
           <Route path="itinerary"     element={<Itinerary />} />
           <Route path="loading"       element={<Loading />} />
-          <Route path="unauthorized"  element={<Unauthorized />}/>
-          <Route path="test"          element={<PageTest />}/>
+          <Route path="unauthorized"  element={<Unauthorized />} />
+          <Route path="test"          element={<PageTest />} />
           <Route path="testing"       element={<PageTesting />} />
 
 
@@ -91,15 +148,15 @@ function App() {
             path="create/*"
             element={
               <Create />
-            //   <ProtectedRoute requireRole="ROLE_MEMBER">
-            //     <Create />
-            //   </ProtectedRoute>
+              //   <ProtectedRoute requireRole="ROLE_MEMBER">
+              //     <Create />
+              //   </ProtectedRoute>
             }
           />
           <Route
             path="create/equipment"
             element={
-              <CreateEquipment/>
+              <CreateEquipment />
               // <ProtectedRoute requireRole="ROLE_MEMBER">
               //   <CreateEquipment/>
               // </ProtectedRoute>
@@ -109,7 +166,7 @@ function App() {
             path="create/itinerary"
             element={
               <ProtectedRoute requireRole="ROLE_MEMBER">
-                <CreateItinerary/>
+                <CreateItinerary />
               </ProtectedRoute>
             }
           />
@@ -125,7 +182,7 @@ function App() {
           />
         </Route>
       </Routes>
-      
+
 
     </Router>
 
