@@ -61,10 +61,10 @@ export default function PageTesting() {
         <img
           src={previewUrl}
           alt="預覽圖片"
-          className="max-h-52 max-w-52"
+          className="max-h-96 max-w-96"
         />
       )}
-      <div className='flex flex-row items-center justify-center h-96'>
+      <div className='flex flex-row items-center justify-center h-32'>
         <input type="file" className="file-input file-input-bordered w-full max-w-xs" onChange={(e) => handleFileChange(e.target.files)}/>
         <button className="btn btn-outline btn-primary ml-6" onClick={uploadImage}>上傳圖片</button>
       </div>
