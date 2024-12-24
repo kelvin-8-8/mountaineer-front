@@ -1,6 +1,9 @@
 import React from 'react'
 
-export default function CreateEquipment() {
+export default function Order() {
+
+    
+
     return (
         <div className='flex flex-col items-center justify-center'>
             <div className='justify-center items-center content-center max-w-screen-xl'>
@@ -9,7 +12,6 @@ export default function CreateEquipment() {
                     <input type="button" value="背包" className="btn btn-xs md:btn-md" />
                     <input type="button" value="帳篷" className="btn btn-xs md:btn-md" />
                     <input type="button" value="睡袋" className="btn btn-xs md:btn-md" />
-                    <input type="button" value="+ Add New Equipment" className="btn btn-xs md:btn-md" />
                 </div>
 
                 <div className="divider"></div>
@@ -63,8 +65,6 @@ export default function CreateEquipment() {
                     </div>
                 </div>
             </div>
-
-
         </div>
     )
 }

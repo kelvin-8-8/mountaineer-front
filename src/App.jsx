@@ -26,6 +26,7 @@ import SignUp from "./pages/SignUp";
 import Loading from "./pages/Loading";
 import Unauthorized from "./pages/Unauthorized";
 import Profile from "./pages/Profile";
+import Order from "./pages/Order";
 import Create from "./pages/Create";
 import CreateEquipment from "./pages/CreateEquipment";
 import CreateItinerary from "./pages/CreateItinerary";
@@ -139,11 +140,20 @@ function App() {
             <Route
               path="profile"
               element={
-                <ProtectedRoute requireRole="ROLE_MEMBER">
+                <ProtectedRoute requireRole="ROLE_USER">
                   <Profile />
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="order"
+              element={
+                <ProtectedRoute requireRole="ROLE_USER">
+                  <Order />
+                </ProtectedRoute>
+              }
+            />
+
 
             {/* 受保護路由 - 需要 member 或更高 */}
             <Route

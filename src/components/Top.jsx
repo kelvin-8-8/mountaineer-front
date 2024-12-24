@@ -4,7 +4,7 @@ import SwitchButton from "../components/SwitchButton";
 import UserButton from "../components/UserButton";
 import LogoutButton from "../components/LogoutButton";
 import CartButton from "../components/CartButton";
-import { AuthContext } from "../route/AuthContext";
+import FolderButton from "./FolderButton";
 
 export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFromCart}) {
 
@@ -163,6 +163,11 @@ export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFro
                 <li>
                   <Link to="/profile">
                     <UserButton />
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/order">
+                    <FolderButton />
                   </Link>
                 </li>
                 <li>

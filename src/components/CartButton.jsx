@@ -12,7 +12,7 @@ export default function CartButton({ cart, removeFromCart }) {
                 startDate: selectedDate,
                 duration: parseInt(rentalDays, 10),
                 items: cart.map(item => ({
-                    id: item.id, // 確保 cart 裡有 `id` 屬性
+                    id: item.id,
                     quantity: item.quantity
                 }))
             };
