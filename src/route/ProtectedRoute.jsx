@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { isLogin, checkRole } from '../services/authService';
 import { Navigate } from "react-router-dom";
 import Loading from '../pages/Loading';
+import { AuthContext } from './AuthContext';
 
 const ROLE_HIERARCHY = {
   "ROLE_GUEST": 1,
@@ -32,13 +33,16 @@ const ProtectedRoute = ({ children, requiredRole}) => {
   }, []);
 
   if (state.isLoggedIn === null) {
+    
     return <Loading />
-  } else if (state.isLoggedIn === false) {
+  }
+  
+  if (state.isLoggedIn === false) {
     return <Navigate to="/signup" replace />
-  } else {
-    if (requiredRole && ROLE_HIERARCHY[requiredRole] < ROLE_HIERARCHY[state.role]) {
+  }
+
+  if (requiredRole && ROLE_HIERARCHY[requiredRole] < ROLE_HIERARCHY[state.role]) {
       return <Navigate to="/unauthorized" replace />;
-    }
   }
 
   return children

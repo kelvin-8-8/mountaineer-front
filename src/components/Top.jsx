@@ -4,9 +4,9 @@ import SwitchButton from "../components/SwitchButton";
 import UserButton from "../components/UserButton";
 import LogoutButton from "../components/LogoutButton";
 import CartButton from "../components/CartButton";
+import { AuthContext } from "../route/AuthContext";
 
 export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFromCart}) {
-
 
   const ROLE_HIERARCHY = {
     "ROLE_GUEST": 1,

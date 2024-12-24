@@ -10,10 +10,7 @@ export default function Equipment( {addToCart} ) {
 			"price": 30,
 			"type": "TENT",
 			"description": "4人帳",
-			"equipmentImage": {
-				"id": 1,
-				"url": "https://res.cloudinary.com/duco3iisc/image/upload/v1734938034/zkynxss8xchmuf8hmpsz.png"
-			}
+			"url": "https://res.cloudinary.com/duco3iisc/image/upload/v1734938034/zkynxss8xchmuf8hmpsz.png"
 		},
 		{
 			"id": 2,
@@ -21,10 +18,7 @@ export default function Equipment( {addToCart} ) {
 			"price": 30,
 			"type": "TENT",
 			"description": "4人帳",
-			"equipmentImage": {
-				"id": 2,
-				"url": "https://res.cloudinary.com/duco3iisc/image/upload/v1734953660/aa9nwygubtgsy3b8uayc.png"
-			}
+			"url": "https://res.cloudinary.com/duco3iisc/image/upload/v1734953660/aa9nwygubtgsy3b8uayc.png"
 		},
 		{
 			"id": 3,
@@ -32,10 +26,7 @@ export default function Equipment( {addToCart} ) {
 			"price": 10,
 			"type": "TENT",
 			"description": "3人帳",
-			"equipmentImage": {
-				"id": 3,
-				"url": "https://res.cloudinary.com/duco3iisc/image/upload/v1734953902/louk7oilyyxubwmrkppd.png"
-			}
+			"url": "https://res.cloudinary.com/duco3iisc/image/upload/v1734953902/louk7oilyyxubwmrkppd.png"
 		},
 		{
 			"id": 4,
@@ -43,10 +34,7 @@ export default function Equipment( {addToCart} ) {
 			"price": 150,
 			"type": "TENT",
 			"description": "4人帳",
-			"equipmentImage": {
-				"id": 4,
-				"url": "https://res.cloudinary.com/duco3iisc/image/upload/v1734957271/ho6y9nry4mr574nxliwt.png"
-			}
+			"url": "https://res.cloudinary.com/duco3iisc/image/upload/v1734957271/ho6y9nry4mr574nxliwt.png"
 		}
 	]);
 
@@ -62,14 +50,13 @@ export default function Equipment( {addToCart} ) {
     };
     useEffect(() => {
         loadProducts();
-
     }, []);
 
     const handleAddToCart = (item, quantity) => {
         
         console.log(item, quantity);
         if (quantity > 0) {
-            addToCart({ name: item.name, quantity });
+            addToCart({ id: item.id, name: item.name, quantity });
         }
     };
 
@@ -98,7 +85,7 @@ export default function Equipment( {addToCart} ) {
                             <figure>
                                 <img 
                                     className='max-h-40 max-w-16'
-                                    src={item.equipmentImage.url} 
+                                    src={item.url} 
                                     alt="missing" />
                             </figure>
                             <div className="card-body">

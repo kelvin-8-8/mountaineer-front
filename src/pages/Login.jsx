@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from "react";
 import {login, isLogin, checkRole} from "../services/authService";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../route/AuthContext";
 
 export default function Login( {updateAuthState} ) {
 
 	const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 	const navigate = useNavigate();
+
 
 
 	const fetchstats = async () => {
@@ -31,7 +33,7 @@ export default function Login( {updateAuthState} ) {
 			alert("登入成功");
 			fetchstats();
 			//TODO 重導到後台頁面
-			navigate("/profile");
+			navigate("/");
 		} catch (error) {
 			console.log(error);
 			alert("登入失敗");
@@ -39,14 +41,8 @@ export default function Login( {updateAuthState} ) {
 		
 	}
 
-	
-		
-
-		
-
-
 	return (
-		<div className="bg-base-100 flex items-center justify-center min-h-screen">
+		<div className="bg-base-100 flex items-center justify-center min-h-800px">
 			<div className="card w-96 bg-base-100 shadow-xl">
 				<div className="card-body">
 					<h2 className="card-title text-2xl font-bold mb-6">Login</h2>

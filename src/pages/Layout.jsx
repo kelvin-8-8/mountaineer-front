@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import Loading from "./Loading";
 
 
-export default function Layout({ isLoggedIn, role, updateAuthState, cart , removeFromCart}) {
+export default function Layout({ isLoggedIn, role, updateAuthState, cart , removeFromCart }) {
 
     
     return (

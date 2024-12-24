@@ -1,10 +1,11 @@
 import React from "react";
 import Carousel from "../components/Carousel";
-import GearImage from "/Backpacks.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function Home( isLoggedIn) {
 
-  
+  const navigate = useNavigate();
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -16,13 +17,11 @@ export default function Home( isLoggedIn) {
         <div className="hero-overlay bg-opacity-0"></div>
         <div className="hero-content text-center">
           <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Hello there !</h1>
+            <h1 className="mb-5 text-5xl font-bold">Welcome !</h1>
             <p className="mb-5">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+              Click the button below to sign up ~
             </p>
-            <button className="btn btn-primary">Get Started</button>
+            <button className="btn btn-primary" onClick={() => navigate("/login")}>Get Started</button>
           </div>
         </div>
       </div>

@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
+
+import { AuthContext, AuthProvider } from "./route/AuthContext"; 
 
 // Components 
 import Top from "./components/Top";
@@ -31,12 +33,11 @@ import AdminPage from "./pages/AdminPage";
 
 
 // Services
-import { isLogin } from "./services/authService";
+import { isLogin, checkRole } from "./services/authService";
 
 
 
 function App() {
-
 
   // 狀態控制
   const [authState, setAuthState] = useState({
@@ -59,6 +60,7 @@ function App() {
           role: roleResponse.data.role
         });
       } catch (error) {
+        console.error("登入狀態檢查失敗", error);
         setAuthState({ isLoggedIn: null, role: null });
       }
     };
@@ -101,90 +103,90 @@ function App() {
 
 
   return (
-    <Router future={{
-      v7_startTransition: true,  // 啟用 startTransition
-      v7_relativeSplatPath: true // 啟用相對 Splat 路徑解析
-    }}>
-
-      <Routes>
-        {/* 包含 Navbar 和 Footer 的全局佈局 */}
-        <Route
-          path="/"
-          element=
-          {<Layout
-            isLoggedIn={authState.isLoggedIn}
-            role={authState.role}
-            updateAuthState={updateAuthState} 
-            cart={cart}
-            addToCart={addToCart} 
-            removeFromCart={removeFromCart} />}>
-
-          {/* 公開路由 */}
-
-          <Route index                element={<Home />} />
-          <Route path="about"         element={<About />} />
-          <Route path="signup"        element={<SignUp />} />
-          <Route path="login"         element={<Login updateAuthState={updateAuthState} />} />
-          <Route path="equipment"     element={<Equipment addToCart={addToCart} />} />
-          <Route path="itinerary"     element={<Itinerary />} />
-          <Route path="loading"       element={<Loading />} />
-          <Route path="unauthorized"  element={<Unauthorized />} />
-          <Route path="test"          element={<PageTest />} />
-          <Route path="testing"       element={<PageTesting />} />
-
-
-          {/* 受保護路由 - 需要登入 */}
+      <Router future={{
+        v7_startTransition: true,  // 啟用 startTransition
+        v7_relativeSplatPath: true // 啟用相對 Splat 路徑解析
+      }}>
+        
+        <Routes>
+          {/* 包含 Navbar 和 Footer 的全局佈局 */}
           <Route
-            path="profile"
-            element={
-              <ProtectedRoute requireRole="ROLE_MEMBER">
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
+            path="/"
+            element=
+            {<Layout
+              isLoggedIn={authState.isLoggedIn}
+              role={authState.role}
+              updateAuthState={updateAuthState} 
+              cart={cart}
+              addToCart={addToCart} 
+              removeFromCart={removeFromCart} />}>
 
-          {/* 受保護路由 - 需要 member 或更高 */}
-          <Route
-            path="create/*"
-            element={
-              <Create />
-              //   <ProtectedRoute requireRole="ROLE_MEMBER">
-              //     <Create />
-              //   </ProtectedRoute>
-            }
-          />
-          <Route
-            path="create/equipment"
-            element={
-              <CreateEquipment />
-              // <ProtectedRoute requireRole="ROLE_MEMBER">
-              //   <CreateEquipment/>
-              // </ProtectedRoute>
-            }
-          />
-          <Route
-            path="create/itinerary"
-            element={
-              <ProtectedRoute requireRole="ROLE_MEMBER">
-                <CreateItinerary />
-              </ProtectedRoute>
-            }
-          />
+            {/* 公開路由 */}
 
-          {/* 受保護路由 - 需要 admin */}
-          <Route
-            path="admin"
-            element={
-              <ProtectedRoute requireRole="ROLE_ADMIN">
-                <AdminPage />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
-      </Routes>
+            <Route index                element={<Home />} />
+            <Route path="about"         element={<About />} />
+            <Route path="signup"        element={<SignUp />} />
+            <Route path="login"         element={<Login updateAuthState={updateAuthState} />} />
+            <Route path="equipment"     element={<Equipment addToCart={addToCart} />} />
+            <Route path="itinerary"     element={<Itinerary />} />
+            <Route path="loading"       element={<Loading />} />
+            <Route path="unauthorized"  element={<Unauthorized />} />
+            <Route path="test"          element={<PageTest />} />
+            <Route path="testing"       element={<PageTesting />} />
 
 
-    </Router>
+            {/* 受保護路由 - 需要登入 */}
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute requireRole="ROLE_MEMBER">
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* 受保護路由 - 需要 member 或更高 */}
+            <Route
+              path="create/*"
+              element={
+                <Create />
+                //   <ProtectedRoute requireRole="ROLE_MEMBER">
+                //     <Create />
+                //   </ProtectedRoute>
+              }
+            />
+            <Route
+              path="create/equipment"
+              element={
+                <CreateEquipment />
+                // <ProtectedRoute requireRole="ROLE_MEMBER">
+                //   <CreateEquipment/>
+                // </ProtectedRoute>
+              }
+            />
+            <Route
+              path="create/itinerary"
+              element={
+                <ProtectedRoute requireRole="ROLE_MEMBER">
+                  <CreateItinerary />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* 受保護路由 - 需要 admin */}
+            <Route
+              path="admin"
+              element={
+                <ProtectedRoute requireRole="ROLE_ADMIN">
+                  <AdminPage />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Routes>
+
+        
+      </Router>
 
   )
 }
