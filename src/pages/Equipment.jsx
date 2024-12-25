@@ -38,11 +38,17 @@ export default function Equipment( {addToCart} ) {
 		}
 	]);
 
+    const [filterEquip, setFilterEquip] = useState(equips);
+    const [type, setType] = useState("All");
+    
+
+
     //獲取所有裝備
     const loadProducts = async () => {
         try {
             const result = await getAllEquipment(); 
             setEquips(result.data);
+            setFilterEquip(result.data);
             
         } catch (error) {
             console.error("Error fetching products:", error);
@@ -51,6 +57,14 @@ export default function Equipment( {addToCart} ) {
     useEffect(() => {
         loadProducts();
     }, []);
+
+    useEffect(() => {
+        if (type === 'ALL') {
+            setFilterEquip(equips);
+        } else {
+            setFilterEquip(equips.filter((item) => item.type === type));
+        }
+    }, [type, equips])
 
     const handleAddToCart = (item, quantity) => {
         
@@ -67,10 +81,14 @@ export default function Equipment( {addToCart} ) {
             <div className='justify-center items-center content-center max-w-screen-xl'>
                 {/* 篩選 */}
                 <div className="card p-4 bg-base-100 rounded-md flex flex-wrap flex-row justify-center gap-6">
-                    <input type="button" value="All" className="btn btn-xs md:btn-md" />
-                    <input type="button" value="背包" className="btn btn-xs md:btn-md" />
-                    <input type="button" value="帳篷" className="btn btn-xs md:btn-md" />
-                    <input type="button" value="睡袋" className="btn btn-xs md:btn-md" />
+                    <input type="button" value="All" className="btn btn-xs md:btn-md" 
+                            onClick={() => setType('ALL')}/>
+                    <input type="button" value="背包" className="btn btn-xs md:btn-md" 
+                            onClick={() => setType('BACKPACK')}/>
+                    <input type="button" value="帳篷" className="btn btn-xs md:btn-md" 
+                            onClick={() => setType('TENT')}/>
+                    <input type="button" value="睡袋" className="btn btn-xs md:btn-md" 
+                            onClick={() => setType('SLEEPING_BAG')}/>
                 </div>
 
                 <div className="divider"></div>
@@ -80,7 +98,7 @@ export default function Equipment( {addToCart} ) {
                     <div className='flex flex-row flex-wrap justify-center gap-6 align-center p-4 mt-4 '>
 
                     {/* Card樣式 */}
-                    {equips.map( (item) => (
+                    {filterEquip.map( (item) => (
                         <div key={item.id} className="card card-side bg-base-100 shadow-xl">
                             <figure>
                                 <img 
