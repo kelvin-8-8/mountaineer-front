@@ -81,13 +81,13 @@ export default function Equipment( {addToCart} ) {
             <div className='justify-center items-center content-center max-w-screen-xl'>
                 {/* 篩選 */}
                 <div className="card p-4 bg-base-100 rounded-md flex flex-wrap flex-row justify-center gap-6">
-                    <input type="button" value="All" className="btn btn-xs md:btn-md" 
+                    <input type="button" value="All" className="btn btn-xs" 
                             onClick={() => setType('ALL')}/>
-                    <input type="button" value="背包" className="btn btn-xs md:btn-md" 
+                    <input type="button" value="背包" className="btn btn-xs" 
                             onClick={() => setType('BACKPACK')}/>
-                    <input type="button" value="帳篷" className="btn btn-xs md:btn-md" 
+                    <input type="button" value="帳篷" className="btn btn-xs" 
                             onClick={() => setType('TENT')}/>
-                    <input type="button" value="睡袋" className="btn btn-xs md:btn-md" 
+                    <input type="button" value="睡袋" className="btn btn-xs" 
                             onClick={() => setType('SLEEPING_BAG')}/>
                 </div>
 
