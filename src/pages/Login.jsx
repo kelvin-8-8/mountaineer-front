@@ -1,15 +1,25 @@
-import React, {useState, useEffect} from "react";
-import {login, isLogin, checkRole} from "../services/authService";
+import React, { useState, useEffect } from "react";
+import { login, isLogin, checkRole } from "../services/authService";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../route/AuthContext";
+import ReCAPTCHA from 'react-google-recaptcha';
+import useRecaptcha from "../config/useRecaptcha";
+import axios from "axios";
 
-export default function Login( {updateAuthState} ) {
+export default function Login({ updateAuthState }) {
 
 	const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
 
-
+	/*
+	* captcha的參數與功能 
+	*/
+	const [info, setInfo] = useState();
+	// captchaToken : 保存從 ReCAPTCHA 返回的驗證 token, 
+	// recaptchaRef : 透過 ref 操作 ReCAPTCHA 元件,
+	// handleRecaptcha : 當 ReCAPTCHA 狀態變更（例如驗證成功）時觸發的處理函數
+	const { captchaToken, recaptchaRef, handleRecaptcha } = useRecaptcha();
 
 	const fetchstats = async () => {
 		try {
@@ -23,23 +33,53 @@ export default function Login( {updateAuthState} ) {
 			updateAuthState({ isLoggedIn: null, role: null });
 		}
 	};
-	
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		if (!captchaToken) {
+			alert("請先完成驗證");
+			return;
+		}
+
+		// Send the captcha token to your server for verification make api call
+		try {
+			// 將表單資料與 token 一起發送到後端
+			const response = await axios.post("http://localhost:8080/verify",
+				{
+					token: captchaToken // Captcha 驗證的 token
+				}
+			);
+
+			// 測試用
+			console.log(response);
+
+			if (response.status == 200) {
+				console.log("Recaptcha validation passed!", response.data);
+				// 處理後續邏輯，例如跳轉或顯示成功訊息
+			} else {
+				console.error("Recaptcha validation failed!", response.data.message);
+				return
+			}
+		} catch (error) {
+			console.error("Error validating captcha:", error);
+			return
+		}
+		// 測試用
+		// console.log(captchaToken);
+
 		try {
 			const result = await login(username, password);
-            console.log("Login successful:", result);
+			console.log("Login successful:", result);
 			alert("登入成功");
 			fetchstats();
-			//TODO 重導到後台頁面
-			navigate("/");
+			navigate("/profile");
 		} catch (error) {
 			console.log(error);
 			alert("登入失敗");
 		}
-		
 	}
+	
 
 	return (
 		<div className="bg-base-100 flex items-center justify-center min-h-800px">
@@ -56,7 +96,7 @@ export default function Login( {updateAuthState} ) {
 							</label>
 							<label className="input input-bordered flex items-center gap-2">
 								<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 opacity-70">
-									<path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z"/><circle cx="12" cy="6" r="6"/>
+									<path d="M16.043,14H7.957A4.963,4.963,0,0,0,3,18.957V24H21V18.957A4.963,4.963,0,0,0,16.043,14Z" /><circle cx="12" cy="6" r="6" />
 								</svg>
 								<input
 									type="text"
@@ -95,7 +135,15 @@ export default function Login( {updateAuthState} ) {
 								/>
 							</label>
 						</div>
-						<div className="form-control mt-10">
+						<div className="flex justify-center items-center mt-4">
+							<ReCAPTCHA
+								ref={recaptchaRef}
+								sitekey={import.meta.env.VITE_SITE_KEY}
+								// Don't expose your secret key directly fetch it from secret variables
+								onChange={handleRecaptcha}
+							/>
+						</div>
+						<div className="form-control mt-4">
 							<button type="submit" className="btn btn-outline btn-primary">Login</button>
 						</div>
 					</form>

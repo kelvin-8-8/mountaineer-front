@@ -70,3 +70,22 @@ export const register = async (username, trueName, email, password) => {
     throw error;
   }
 };
+
+// 修改
+export const changeProfile = async (username, trueName, email, password, newPassword) => {
+  try {
+      const response = await api.post("/auth/change", {
+          username,
+          password,
+          trueName,
+          email,
+          newPassword,
+      });
+      return response.data;
+  } catch (error) {
+    // （?.）鏈結運算符
+    // 伺服器有回應使用 error.response.data ; 沒有回應使用 error.message(axios提供)
+      console.error("Error in changeProfile:", error.response?.data || error.message);
+      throw error;
+  }
+};

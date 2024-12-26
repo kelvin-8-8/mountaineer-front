@@ -1,12 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
+import 'datatables.net-dt/css/dataTables.dataTables.min.css';
+import "datatables.net";
 
 export default function AdminPage() {
+
+    const [items, setItems] = useState();
+
   return (
     <div className='flex flex-col items-center justify-center'>
             <div className='justify-center items-center content-center max-w-screen-xl'>
                 <div className="card p-4 bg-base-100 rounded-md flex flex-wrap flex-row justify-center gap-6">
-                    <input type="button" value="~~" className="btn btn-xs md:btn-md" />
-                    <input type="button" value="~~~" className="btn btn-xs md:btn-md" />
+                    <input type="button" value="~~" className="btn btn-md" />
+                    <input type="button" value="~~~" className="btn btn-md" />
                 </div>
 
                 <div className="divider"></div>

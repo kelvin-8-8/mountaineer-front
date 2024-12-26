@@ -39,7 +39,7 @@ export default function Equipment( {addToCart} ) {
 	]);
 
     const [filterEquip, setFilterEquip] = useState(equips);
-    const [type, setType] = useState("All");
+    const [type, setType] = useState("ALL");
     
 
 
@@ -54,23 +54,34 @@ export default function Equipment( {addToCart} ) {
             console.error("Error fetching products:", error);
         }
     };
+
     useEffect(() => {
         loadProducts();
     }, []);
 
     useEffect(() => {
+        
         if (type === 'ALL') {
             setFilterEquip(equips);
         } else {
             setFilterEquip(equips.filter((item) => item.type === type));
         }
+        
+
     }, [type, equips])
 
-    const handleAddToCart = (item, quantity) => {
+    const handleAddToCart = async (item, quantity) => {
         
+        try {
+            const loginResponse = await isLogin();
+        } catch {
+            alert("請先登入")
+            console.error("登入狀態檢查失敗", error, loginResponse);
+        }
+
         console.log(item, quantity);
         if (quantity > 0) {
-            addToCart({ id: item.id, name: item.name, quantity });
+            addToCart({ id: item.id, name: item.name, price: item.price, quantity });
         }
     };
 
@@ -81,14 +92,16 @@ export default function Equipment( {addToCart} ) {
             <div className='justify-center items-center content-center max-w-screen-xl'>
                 {/* 篩選 */}
                 <div className="card p-4 bg-base-100 rounded-md flex flex-wrap flex-row justify-center gap-6">
-                    <input type="button" value="All" className="btn btn-xs" 
+                    <input type="button" value="All" className="btn btn-md" 
                             onClick={() => setType('ALL')}/>
-                    <input type="button" value="背包" className="btn btn-xs" 
+                    <input type="button" value="背包" className="btn btn-md" 
                             onClick={() => setType('BACKPACK')}/>
-                    <input type="button" value="帳篷" className="btn btn-xs" 
+                    <input type="button" value="帳篷" className="btn btn-md" 
                             onClick={() => setType('TENT')}/>
-                    <input type="button" value="睡袋" className="btn btn-xs" 
+                    <input type="button" value="睡袋" className="btn btn-md" 
                             onClick={() => setType('SLEEPING_BAG')}/>
+                            <input type="button" value="其他" className="btn btn-md" 
+                            onClick={() => setType('ELSE')}/>
                 </div>
 
                 <div className="divider"></div>
@@ -110,14 +123,14 @@ export default function Equipment( {addToCart} ) {
                                 <h2 className="card-title">{item.name}</h2>
                                 <p>{item.price}/day</p>
                                 <p>{item.description}</p>
-                                <div className="card-actions justify-end">
+                                <div className="card-actions justify-between">
                                     <input type="number" placeholder="amount" className="input input-bordered input-sm max-w-24 mr-6" min="1"
                                     id={`equip-${item.id}`}/>
-                                <button className="btn btn-sm btn-primary" 
-                                        onClick={ () =>
-                                        handleAddToCart( item, parseInt(document.getElementById(`equip-${item.id}`).value) || 0)}
-                                >add</button>
-                            </div>
+                                    <button className="btn btn-sm btn-primary" 
+                                            onClick={ () =>
+                                            handleAddToCart( item, parseInt(document.getElementById(`equip-${item.id}`).value) || 0)}
+                                    >add</button>
+                                </div>
                             </div>
                         </div>
                     ))}

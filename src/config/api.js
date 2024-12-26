@@ -7,5 +7,5 @@ export const api = axios.create({
     withCredentials: true, // 允許攜帶 cookie
     headers: {
         'Content-Type': 'application/json'
-      }
+    }
 });

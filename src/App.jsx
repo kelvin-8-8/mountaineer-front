@@ -27,6 +27,7 @@ import Loading from "./pages/Loading";
 import Unauthorized from "./pages/Unauthorized";
 import Profile from "./pages/Profile";
 import Order from "./pages/Order";
+import OrderEquipment from "./pages/OrderEquipment"
 import Create from "./pages/Create";
 import CreateEquipment from "./pages/CreateEquipment";
 import CreateItinerary from "./pages/CreateItinerary";
@@ -141,7 +142,7 @@ function App() {
               path="profile"
               element={
                 <ProtectedRoute requireRole="ROLE_USER">
-                  <Profile />
+                  <Profile updateAuthState={updateAuthState}/>
                 </ProtectedRoute>
               }
             />
@@ -182,6 +183,14 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="order/equipment"
+              element={
+                <ProtectedRoute requireRole="ROLE_MEMBER">
+                  <OrderEquipment />
+                </ProtectedRoute>
+              }
+            />
 
             {/* 受保護路由 - 需要 admin */}
             <Route
@@ -202,11 +211,3 @@ function App() {
 }
 
 export default App;
-
-
-//<Routes>
-//        {/* <Route path="/admin/*" element={<AdminRouter />}></Route> */}
-//       <Route path="/boss/*" element={<BossRouter userData={userData} />}></Route>
-//        <Route path="/member/*" element={<MemberRouter userData={userData} />}></Route>
-//        <Route path="/*" element={<VisitorRouter userData={ userData} />}></Route>
-//</Routes>

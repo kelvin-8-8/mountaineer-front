@@ -64,17 +64,42 @@ export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFro
                 <Link to="/about">About</Link>
               </li>
               {/* Features */}
-              <li>
+              <li className="text-success">
                 <a>Features</a>
                 <ul className="p-2">
-                  <li>
-                    <a>借裝備</a>
+                  <li className="underline">
+                    <Link to="/equipment">借裝備</Link>
                   </li>
-                  <li>
-                    <a>隊伍資訊</a>
-                  </li>
+                  {/* <li>
+                    <Link to="/itinerary">隊伍資訊</Link>
+                  </li> */}
                 </ul>
               </li>
+
+              {/* Creates */}
+              {
+                isLoggedIn && ROLE_HIERARCHY[role] >= ROLE_HIERARCHY["ROLE_ADMIN"] ? 
+                <li className="text-success">
+                  <a>Creates</a>
+                  <ul className="p-2">
+                    <li className="underline">
+                      <Link to="/create/equipment">新增裝備</Link>
+                    </li>
+                    {/* <li>
+                      <Link to="/create/itinerary">新增隊伍</Link>
+                    </li> */}
+                  </ul>
+                </li> :
+                <></>
+              }
+              {/* Admin */}
+              {
+                isLoggedIn && ROLE_HIERARCHY[role] >= ROLE_HIERARCHY["ROLE_ADMIN"] ? 
+                <li className="text-success">
+                  <Link to="/admin">Admin</Link>
+                </li> :
+                <></>
+              }
             </ul>
           </div>
           {/* 標題 */}
@@ -101,9 +126,9 @@ export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFro
                     <li>
                       <Link to="/equipment">借裝備</Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link to="/itinerary">隊伍資訊</Link>
-                    </li>
+                    </li> */}
                   </ul>
               </details>
             </li>
@@ -112,32 +137,32 @@ export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFro
               isLoggedIn && ROLE_HIERARCHY[role] >= ROLE_HIERARCHY["ROLE_MEMBER"] ? 
               <li className="text-success">
                 <details className="dropdownDetails ">
-                  <summary className="underline">Create</summary>
+                  <summary>Create</summary>
                   <ul className="relative top-6 w-32">
                     <li>
                       <Link to="/create/equipment">新增裝備</Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link to="/create/itinerary">新增隊伍</Link>
-                    </li>
+                    </li> */}
                   </ul>
                 </details>
               </li> :
               <></>
             }
-            {/* Manage */}
+            {/* Order */}
             {
               isLoggedIn && ROLE_HIERARCHY[role] >= ROLE_HIERARCHY["ROLE_MEMBER"] ? 
               <li className="text-success">
                 <details className="dropdownDetails ">
-                  <summary className="underline">Manage</summary>
+                  <summary>Order</summary>
                   <ul className="relative top-6 w-32">
                     <li>
-                      <Link to="/manage/equipment">裝備訂單</Link>
+                      <Link to="/order/equipment">裝備訂單</Link>
                     </li>
-                    <li>
-                      <Link to="/manage/itinerary">你的隊伍</Link>
-                    </li>
+                    {/* <li>
+                      <Link to="/order/itinerary">你的隊伍</Link>
+                    </li> */}
                   </ul>
                 </details>
               </li> :

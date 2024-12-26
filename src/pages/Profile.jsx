@@ -1,45 +1,48 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { checkRole } from '../services/authService';
+import { changeProfile, logout } from '../services/authService';
 
-export default function Profile() {
+export default function Profile( {updateAuthState} ) {
 
-  const [username, setUsername] = useState("");
+	const [username, setUsername] = useState("");
 	const [trueName, setTrueName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+	const [newPassword, setNewPassword] = useState("");
 
 	const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const result = await checkRole();
-        if (result.status === 200 && result.data) {
-          const { username, trueName, email } = result.data;
-          setUsername(username || "");
-          setTrueName(trueName || "");
-          setEmail(email || "");
-        }
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
-        alert("獲取使用者資料失敗，請重新登入");
-        navigate("/login");
-      }
-    };
-    fetchUserData();
-  }, []);
+	useEffect(() => {
+		const fetchUserData = async () => {
+			try {
+				const result = await checkRole();
+				console.log(result.data);
+				if (result.status === 200) {
+					setUsername(result.data.username);
+					setTrueName(result.data.truename);
+					setEmail(result.data.email);
+				}
+			} catch (error) {
+				console.error("Failed to fetch user data:", error);
+				alert("獲取使用者資料失敗，請重新登入");
+				navigate("/login");
+			}
+		};
+		fetchUserData();
+	}, []);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		
 		try {
 			const result = await changeProfile(username, trueName, email, password, newPassword);
 			console.log("Register successful:", result);
 			alert("修改成功,請重新登入");
-      
-      // 登出
-      await logout();
+
+			// 登出
+			await logout();
+			updateAuthState({ isLoggedIn: false, role: null })
 			// TODO 重導到後台頁面
 			navigate("/login");
 		}
@@ -48,9 +51,9 @@ export default function Profile() {
 			alert("修改失敗");
 			navigate("/");
 		}
-
 	}
-  return (
+	
+	return (
 		<div className="bg-base-100 flex items-center justify-center min-h-800px">
 			<div className="card w-96 bg-base-100 shadow-xl">
 				<div className="card-body">
@@ -72,7 +75,7 @@ export default function Profile() {
 									placeholder="Username"
 									value={username}
 									onChange={(e) => setUsername(e.target.value)}
-                  disabled
+									disabled
 								/>
 							</label>
 						</div>
@@ -112,13 +115,13 @@ export default function Profile() {
 									<path
 										d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
 								</svg>
-								<input 
-									type="email" 
-									className="grow" 
-									placeholder="Email" 
+								<input
+									type="email"
+									className="grow"
+									placeholder="Email"
 									value={email}
-									onChange={(e) => setEmail(e.target.value) }
-                  disabled
+									onChange={(e) => setEmail(e.target.value)}
+									disabled
 								/>
 							</label>
 						</div>
@@ -151,7 +154,7 @@ export default function Profile() {
 							</label>
 						</div>
 
-            {/* 新密碼 */}
+						{/* 新密碼 */}
 						<div className="form-control mt-4">
 							<label className="label">
 								<span className="label-text">New password</span>

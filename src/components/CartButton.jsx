@@ -1,12 +1,18 @@
-import React, {useState} from 'react'
-import { addOrder } from '../services/equipmentService';
+import React, {useState,useEffect} from 'react'
+import { addOrder } from '../services/orderService'; 
 
 export default function CartButton({ cart, removeFromCart }) {
 
     const [selectedDate, setSelectedDate] = useState('');
     const [rentalDays, setRentalDays] = useState('');
+    const [totalPrice, setTotalPrice] = useState(0);
+    // 取得今天的日期，格式為 YYYY-MM-DD，用來判斷選擇的日期至少在今天之後
+    const today = new Date().toISOString().split('T')[0];
 
     const handleCheckout = async () => {
+
+        
+
         try {
             const orderRequest = {
                 startDate: selectedDate,
@@ -27,6 +33,19 @@ export default function CartButton({ cart, removeFromCart }) {
         }
     };
 
+    // 計算總價
+    useEffect(() => {
+        const calculateTotal = () => {
+            if (!rentalDays) return 0;
+            // reduce() : array 的方法，用來將陣列中的所有元素計算成單一值
+            return cart.reduce((total, item) => {
+                return total + (item.price * item.quantity * parseInt(rentalDays, 10));
+            }, 0);
+        };
+        
+        setTotalPrice(calculateTotal());
+    }, [cart, rentalDays]);
+
 
     return (
         <div className="drawer drawer-end">
@@ -46,7 +65,7 @@ export default function CartButton({ cart, removeFromCart }) {
                     {cart.length > 0 ? (
                         <>
                             {/* 按鈕 */}
-                            <li className='flex flex-row justify-between'>
+                            <li className='flex flex-row justify-around'>
                                 <label className="mb-2">
                                     選擇日期：
                                     <input
@@ -64,6 +83,7 @@ export default function CartButton({ cart, removeFromCart }) {
                                         value={selectedDate}
                                         placeholder="請選擇日期"
                                         onChange={(e) => setSelectedDate(e.target.value)}
+                                        min={today}
                                     />
                                 </label>
                                 <label className="mb-2">
@@ -77,21 +97,15 @@ export default function CartButton({ cart, removeFromCart }) {
                                         min="1"
                                     />
                                 </label >
+                                
+                            </li>
+                            <li className='flex flex-row justify-around'>
                                 <button 
                                     className="btn btn-outline btn-success mb-4 pr-4" onClick={handleCheckout}>
                                     送出訂單
                                 </button>
-                                {/* modal內容 */}
-                                <dialog id="date_pick_modal" className="modal">
-                                    <div className="modal-box">
-                                        <h3 className="font-bold text-lg">Hello!</h3>
-                                        <p className="py-4">Press ESC key or click outside to close</p>
-                                    </div>
-                                    <form method="dialog" className="modal-backdrop">
-                                        <button>close</button>
-                                    </form>
-                                </dialog>
-                                {/* modal內容 */}
+                                
+                                    
                             </li>
                             {cart.map((item, index) => (
                                 <li key={index} className='flex flex-row justify-between'>
@@ -99,6 +113,11 @@ export default function CartButton({ cart, removeFromCart }) {
                                     <span>x {item.quantity}</span>
                                 </li>
                             ))}
+                            <li className='flex flex-row justify-end'>
+                                <p className='self-center text-center'>
+                                    總價：NT$ {totalPrice}
+                                </p>
+                            </li>
                         </>
                     ) : (
                         <li>購物車是空的</li>

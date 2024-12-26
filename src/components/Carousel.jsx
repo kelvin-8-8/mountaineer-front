@@ -11,10 +11,10 @@ import 'swiper/css/pagination';
 export default function Carousel() {
 
   const images = [
-    "/Mountain.jpg",
-    "https://picsum.photos/1080/800",
-    "https://picsum.photos/800/400",
-    "https://picsum.photos/id/28/800/400",
+    "/Mountain1.jpg",
+    "/Mountain2.jpg",
+    "/Mountain3.jpg",
+    "/Mountain4.jpg",
   ]
 
   return (
