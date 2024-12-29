@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { login, isLogin, checkRole } from "../services/authService";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../route/AuthContext";
+import { api } from "../config/api";
 import ReCAPTCHA from 'react-google-recaptcha';
 import useRecaptcha from "../config/useRecaptcha";
-import axios from "axios";
+
 
 export default function Login({ updateAuthState }) {
 
@@ -45,7 +45,7 @@ export default function Login({ updateAuthState }) {
 		// Send the captcha token to your server for verification make api call
 		try {
 			// 將表單資料與 token 一起發送到後端
-			const response = await axios.post("http://localhost:8080/verify",
+			const response = await api.post("/verify",
 				{
 					token: captchaToken // Captcha 驗證的 token
 				}
@@ -70,7 +70,6 @@ export default function Login({ updateAuthState }) {
 
 		try {
 			const result = await login(username, password);
-			console.log("Login successful:", result);
 			alert("登入成功");
 			fetchstats();
 			navigate("/profile");
