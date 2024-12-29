@@ -11,12 +11,19 @@ export const getAllEquipment = async () => {
   }
 }
 
-
+export const addEquipment = async (addItem) => {
+  try {
+    const response = await api.post('/equip/add', addItem);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
 
 // 修改
-export const changeEquipment = async () => {
+export const changeEquipment = async (updatedItem) => {
   try {
-    const response = await api.get('/change');
+    const response = await api.post('/equip/change', updatedItem);
     return response.data;
   } catch (error) {
     throw error;
@@ -24,9 +31,9 @@ export const changeEquipment = async () => {
 }
 
 // 刪除
-export const deleteEquipment = async () => {
+export const deleteEquipment = async (deleteItem) => {
   try {
-    const response = await api.get('/delete');
+    const response = await api.post('/equip/delete', deleteItem);
     return response.data;
   } catch (error) {
     throw error;

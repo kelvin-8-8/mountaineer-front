@@ -65,12 +65,12 @@ export default function CartButton({ cart, removeFromCart }) {
                     {cart.length > 0 ? (
                         <>
                             {/* 按鈕 */}
-                            <li className='flex flex-row justify-around'>
+                            <li className='flex flex-row justify-start'>
                                 <label className="mb-2">
-                                    選擇日期：
+                                    <span>選擇日期:</span>
                                     <input
                                         type="text"
-                                        className="input input-ghost input-success input-sm max-w-24"
+                                        className="input input-ghost input-info input-sm max-w-36"
                                         onFocus={(e) => {
                                             e.target.type = "date";
                                             e.target.showPicker();
@@ -87,10 +87,10 @@ export default function CartButton({ cart, removeFromCart }) {
                                     />
                                 </label>
                                 <label className="mb-2">
-                                    租借天數：
+                                    租借天數:
                                     <input
                                         type="number"
-                                        className="input input-ghost input-success input-sm max-w-24"
+                                        className="input input-ghost input-info input-sm max-w-24"
                                         value={rentalDays}
                                         placeholder="輸入天數"
                                         onChange={(e) => setRentalDays(e.target.value)}
@@ -99,9 +99,9 @@ export default function CartButton({ cart, removeFromCart }) {
                                 </label >
                                 
                             </li>
-                            <li className='flex flex-row justify-around'>
+                            <li className='flex flex-row justify-around '>
                                 <button 
-                                    className="btn btn-outline btn-success mb-4 pr-4" onClick={handleCheckout}>
+                                    className="btn btn-outline btn-success my-4 pr-4" onClick={handleCheckout}>
                                     送出訂單
                                 </button>
                                 

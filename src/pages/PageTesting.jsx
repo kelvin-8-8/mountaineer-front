@@ -45,8 +45,6 @@ export default function PageTesting() {
         setImage(response.data.url);
         console.log(response);
         console.log(response.data.url);
-        console.log(image);
-        
       })
       .catch((error) => {
         console.error("上傳圖片時發生錯誤：", error);
@@ -54,7 +52,6 @@ export default function PageTesting() {
   };
   
   return (
-
     <div className='flex flex-col items-center justify-center min-h-800px'>
       {/* 圖片預覽區域 */}
       {previewUrl && (
@@ -70,7 +67,5 @@ export default function PageTesting() {
       </div>
       
     </div>
-
-
   );
 }

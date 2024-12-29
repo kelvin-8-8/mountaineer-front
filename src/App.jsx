@@ -141,7 +141,8 @@ function App() {
             <Route
               path="profile"
               element={
-                <ProtectedRoute requireRole="ROLE_USER">
+                <ProtectedRoute requireRole="ROLE_USER" isLoggedIn={authState.isLoggedIn}
+                role={authState.role}>
                   <Profile updateAuthState={updateAuthState}/>
                 </ProtectedRoute>
               }
@@ -149,7 +150,8 @@ function App() {
             <Route
               path="order"
               element={
-                <ProtectedRoute requireRole="ROLE_USER">
+                <ProtectedRoute requireRole="ROLE_USER" isLoggedIn={authState.isLoggedIn}
+                role={authState.role}>
                   <Order />
                 </ProtectedRoute>
               }
@@ -160,25 +162,27 @@ function App() {
             <Route
               path="create/*"
               element={
-                <Create />
-                //   <ProtectedRoute requireRole="ROLE_MEMBER">
-                //     <Create />
-                //   </ProtectedRoute>
+                  <ProtectedRoute requireRole="ROLE_MEMBER" isLoggedIn={authState.isLoggedIn}
+                  role={authState.role}>
+                    <Create />
+                  </ProtectedRoute>
               }
             />
             <Route
               path="create/equipment"
               element={
-                <CreateEquipment />
-                // <ProtectedRoute requireRole="ROLE_MEMBER">
-                //   <CreateEquipment/>
-                // </ProtectedRoute>
+          
+                <ProtectedRoute requireRole="ROLE_MEMBER" isLoggedIn={authState.isLoggedIn}
+                role={authState.role}>
+                  <CreateEquipment/>
+                </ProtectedRoute>
               }
             />
             <Route
               path="create/itinerary"
               element={
-                <ProtectedRoute requireRole="ROLE_MEMBER">
+                <ProtectedRoute requireRole="ROLE_MEMBER" isLoggedIn={authState.isLoggedIn}
+                role={authState.role}>
                   <CreateItinerary />
                 </ProtectedRoute>
               }
@@ -186,7 +190,8 @@ function App() {
             <Route
               path="order/equipment"
               element={
-                <ProtectedRoute requireRole="ROLE_MEMBER">
+                <ProtectedRoute requireRole="ROLE_MEMBER" isLoggedIn={authState.isLoggedIn}
+                role={authState.role}>
                   <OrderEquipment />
                 </ProtectedRoute>
               }
@@ -196,7 +201,8 @@ function App() {
             <Route
               path="admin"
               element={
-                <ProtectedRoute requireRole="ROLE_ADMIN">
+                <ProtectedRoute requireRole="ROLE_ADMIN" isLoggedIn={authState.isLoggedIn}
+                role={authState.role}>
                   <AdminPage />
                 </ProtectedRoute>
               }

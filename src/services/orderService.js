@@ -10,12 +10,42 @@ export const addOrder = async (orderRequest) => {
     }
 }
 
-export const getAll = async () => {
+export const getAllOrder = async () => {
     try {
         const response = await api.get("/order/all")
         return response.data;
     } catch (error) {
         console.error("Error in getAllOrder:", error.response?.data || error.message);
+        throw error;
+    }
+}
+
+export const getYourOrder = async () => {
+    try {
+        const response = await api.get("/order")
+        return response.data;
+    } catch (error) {
+        console.error("Error in getYourOrder:", error.response?.data || error.message);
+        throw error;
+    }
+}
+
+export const confirmOrder = async () => {
+    try {
+        const response = await api.get("/order/change")
+        return response.data;
+    } catch (error) {
+        console.error("Error in confirmOrder:", error.response?.data || error.message);
+        throw error;
+    }
+}
+
+export const cancelOrder = async () => {
+    try {
+        const response = await api.get("/order/cancel")
+        return response.data;
+    } catch (error) {
+        console.error("Error in cancelOrder:", error.response?.data || error.message);
         throw error;
     }
 }

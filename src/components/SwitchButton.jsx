@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export default function SwitchButton() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   const toggleTheme = () => {
     setDarkMode(!darkMode);

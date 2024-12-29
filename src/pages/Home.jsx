@@ -10,8 +10,7 @@ export default function Home( isLoggedIn) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Carousel />
-
-      <div
+      {/* <div
         className="hero max-w-screen-xl h-80"
       >
         <div className="hero-overlay bg-opacity-0"></div>
@@ -21,9 +20,7 @@ export default function Home( isLoggedIn) {
             <button className="btn btn-primary" onClick={() => navigate("/login")}>Click me login</button>
           </div>
         </div>
-      </div>
-      
-
-      </div>
+      </div> */}
+    </div>
   );
 }

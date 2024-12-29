@@ -1,4 +1,5 @@
 import React, {useState,useEffect} from 'react'
+import { isLogin } from '../services/authService';
 import { getAllEquipment } from '../services/equipmentService';
 
 export default function Equipment( {addToCart} ) {
@@ -40,8 +41,6 @@ export default function Equipment( {addToCart} ) {
 
     const [filterEquip, setFilterEquip] = useState(equips);
     const [type, setType] = useState("ALL");
-    
-
 
     //獲取所有裝備
     const loadProducts = async () => {
@@ -74,6 +73,8 @@ export default function Equipment( {addToCart} ) {
         
         try {
             const loginResponse = await isLogin();
+            console.log(loginResponse);
+            
         } catch {
             alert("請先登入")
             console.error("登入狀態檢查失敗", error, loginResponse);
@@ -92,16 +93,11 @@ export default function Equipment( {addToCart} ) {
             <div className='justify-center items-center content-center max-w-screen-xl'>
                 {/* 篩選 */}
                 <div className="card p-4 bg-base-100 rounded-md flex flex-wrap flex-row justify-center gap-6">
-                    <input type="button" value="All" className="btn btn-md" 
-                            onClick={() => setType('ALL')}/>
-                    <input type="button" value="背包" className="btn btn-md" 
-                            onClick={() => setType('BACKPACK')}/>
-                    <input type="button" value="帳篷" className="btn btn-md" 
-                            onClick={() => setType('TENT')}/>
-                    <input type="button" value="睡袋" className="btn btn-md" 
-                            onClick={() => setType('SLEEPING_BAG')}/>
-                            <input type="button" value="其他" className="btn btn-md" 
-                            onClick={() => setType('ELSE')}/>
+                    <input type="button" value="All" className="btn btn-md" onClick={() => setType('ALL')}/>
+                    <input type="button" value="背包" className="btn btn-md" onClick={() => setType('BACKPACK')}/>
+                    <input type="button" value="帳篷" className="btn btn-md" onClick={() => setType('TENT')}/>
+                    <input type="button" value="睡袋" className="btn btn-md" onClick={() => setType('SLEEPING_BAG')}/>
+                    <input type="button" value="其他" className="btn btn-md" onClick={() => setType('ELSE')}/>
                 </div>
 
                 <div className="divider"></div>
@@ -121,7 +117,7 @@ export default function Equipment( {addToCart} ) {
                             </figure>
                             <div className="card-body">
                                 <h2 className="card-title">{item.name}</h2>
-                                <p>{item.price}/day</p>
+                                <p>$ {item.price}/day</p>
                                 <p>{item.description}</p>
                                 <div className="card-actions justify-between">
                                     <input type="number" placeholder="amount" className="input input-bordered input-sm max-w-24 mr-6" min="1"
@@ -134,7 +130,6 @@ export default function Equipment( {addToCart} ) {
                             </div>
                         </div>
                     ))}
-                        
                     </div>
                 </div>
             </div>

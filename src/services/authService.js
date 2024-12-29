@@ -1,7 +1,6 @@
 // services/authService.js
 import { API_BASE_URL, api } from "../config/api";
 
-
 /**
  * 
  * @returns {Promise<Object>} 包含登入狀態的 API 回應
