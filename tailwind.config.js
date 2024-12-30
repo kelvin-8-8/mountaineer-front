@@ -21,6 +21,10 @@ export default {
         '800px': '800px',
       },
 
+      minWidth: {
+        '500px': '500px',
+      },
+
       fontFamily: {
         tradewinds: ['Trade Winds', 'sans-serif'],
       },
