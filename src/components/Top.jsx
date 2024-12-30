@@ -6,7 +6,7 @@ import LogoutButton from "../components/LogoutButton";
 import CartButton from "../components/CartButton";
 import FolderButton from "./FolderButton";
 
-export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFromCart}) {
+export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFromCart, clearCart}) {
 
   const ROLE_HIERARCHY = {
     "ROLE_GUEST": 1,
@@ -212,7 +212,7 @@ export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFro
                   </Link>
                 </li>
                 <li>
-                  <CartButton cart={cart} removeFromCart={removeFromCart}/>
+                  <CartButton cart={cart} removeFromCart={removeFromCart} clearCart={clearCart}/>
                 </li>
                 <li>
                   <Link to="/">
@@ -230,7 +230,7 @@ export default function Top({ isLoggedIn, role, updateAuthState, cart, removeFro
                   </Link>
                 </li>
                 <li>
-                  <CartButton cart={cart} removeFromCart={removeFromCart}/>
+                  <CartButton cart={cart} removeFromCart={removeFromCart} clearCart={clearCart}/>
                 </li>
                 <li>
                   <SwitchButton />
